@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "articles")
@@ -16,15 +18,19 @@ public class Article implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id ;
 
+    @NotEmpty(message = "Title is required")
     @Column(name = "article_title")
     private String title ;
 
+    @NotEmpty(message = "Content is required")
     @Column(name = "article_content", length = 10 * 1024)
     private String content ;
 
     @Column(name = "article_view")
     private int view ;
 
+    @ManyToOne
+    private Category category ;
 
     public Article(){
         
@@ -70,6 +76,14 @@ public class Article implements Serializable {
     @Override
     public String toString() {
         return "Article [content=" + content + ", id=" + id + ", title=" + title + ", view=" + view + "]";
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     
