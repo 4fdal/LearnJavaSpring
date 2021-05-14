@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.learn.restfull.dto.ResponseData;
 import com.learn.restfull.models.entities.Article;
+import com.learn.restfull.models.entities.Person;
 import com.learn.restfull.services.ArticleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,12 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    public void create(@PathVariable(name = "id") long id) {
+    public void delete(@PathVariable(name = "id") long id) {
         this.articleService.deleteArticle(id);
+    }
+
+    @PostMapping("/{id}")
+    public void addPerson(@PathVariable(name = "id") long id, @RequestBody Person person){
+        this.articleService.AddPerson(person, id);
     }
 }
